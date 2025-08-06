@@ -1,0 +1,45 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "jest --runInBand",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "migrate": "node src/utils/migrations.js run",
+    "migrate:create": "node src/utils/migrations.js create",
+    "migrate:status": "node src/utils/migrations.js status",
+    "db:init": "node -e \"require('./src/utils/database').initializeDatabase().then(() => process.exit(0)).catch(() => process.exit(1))\"",
+    "db:test": "node -e \"require('./src/utils/database').testConnection().then(() => process.exit(0)).catch(() => process.exit(1))\"",
+    "db:setup": "node src/utils/setup-database.js generate",
+    "db:generate-sql": "node -e \"console.log(require('./src/utils/database').generateAllSchemaSQL())\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@maxint/teller": "^0.2.0",
+    "@supabase/supabase-js": "^2.50.0",
+    "axios": "^1.7.9",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "express-rate-limit": "^7.5.1",
+    "joi": "^17.13.3"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "nodemon": "^3.0.0",
+    "supertest": "^6.3.3"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "setupFilesAfterEnv": [
+      "<rootDir>/tests/setup.js"
+    ],
+    "testTimeout": 10000
+  }
+}
